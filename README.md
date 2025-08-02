@@ -1,50 +1,3 @@
-# Astro Starter Kit: Basics
-
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
 # Google Analytics Astro Example
 
 Este proyecto es un ejemplo básico de cómo integrar Google Analytics en un sitio construido con [Astro](https://astro.build), utilizando la integración de [Partytown](https://partytown.builder.io/) para cargar scripts de terceros de forma optimizada.
@@ -96,6 +49,26 @@ Este proyecto es un ejemplo básico de cómo integrar Google Analytics en un sit
 - El archivo [`GoogleAnalytics.astro`](src/components/GoogleAnalytics.astro) contiene el script de Google Analytics, pero usando `type="text/partytown"` para que Partytown lo ejecute en un web worker.
 - El layout [`Layout.astro`](src/layouts/Layout.astro) incluye este componente en el `<head>`, por lo que el código de Analytics se carga en todas las páginas que usen este layout.
 
+## ⚠️ Importante: Configura tu GA_MEASUREMENT_ID
+
+Para que Google Analytics funcione correctamente, debes reemplazar `GA_MEASUREMENT_ID` por el ID de medición de tu propia propiedad de Google Analytics.
+
+Abre el archivo [`src/components/GoogleAnalytics.astro`](src/components/GoogleAnalytics.astro) y reemplaza todas las apariciones de `GA_MEASUREMENT_ID` por tu identificador real, que tiene un formato similar a `G-XXXXXXXXXX`:
+
+```astro
+<!-- Google tag (gtag.js) -->
+<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+```
+
+Puedes encontrar tu ID de medición en la configuración de tu propiedad de Google Analytics.
+
 ## 🧩 Tecnologías principales
 
 - [Astro](https://astro.build/)
@@ -108,6 +81,3 @@ Este proyecto es un ejemplo básico de cómo integrar Google Analytics en un sit
 - [Documentación de Partytown](https://partytown.builder.io/)
 - [Google Analytics](https://developers.google.com/analytics)
 
----
-
-¡Listo! Ahora tienes un ejemplo funcional y optimizado de Google Analytics en Astro usando Partytown.
